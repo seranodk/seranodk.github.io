@@ -54,7 +54,7 @@ footer a{color:var(--fg)}
 <main class="wrap">
 <header>
   <h1>Troels' Spilhal<span class="coin">.</span></h1>
-  <p class="lede"><span id="count">Syv små spil</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
+  <p class="lede"><span id="count">Seks små spil</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
 </header>
 <nav class="grid" aria-label="Spil">
 <a class="card" href="https://seranodk.github.io/sensible/" data-game="https://seranodk.github.io/sensible/" data-repo="sensible" aria-label="Spil Sensible">
@@ -108,15 +108,6 @@ footer a{color:var(--fg)}
     <span class="meta"><span class="genre">Huskespil</span><span class="ver" title="Nyeste version">v0.3.0</span></span>
     <span class="name">Vendespil</span>
     <span class="desc">Vend to kort ad gangen og find parrene. Til børn fra 4 år, med 15 slags billeder, tre brætstørrelser og spil for én eller to.</span>
-    <span class="play">Spil <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l7 5-7 5z"/></svg></span>
-  </span>
-</a>
-<a class="card" href="https://seranodk.github.io/Bilspil/" data-game="https://seranodk.github.io/Bilspil/" data-repo="Bilspil" aria-label="Spil Bilspil">
-  <span class="shot"><img src="data:image/webp;base64,UklGRs4BAABXRUJQVlA4IMIBAACQMwCdASrgAeABPmEwlkikIyIhIAgAgAwJaW7hd2EbQAnsA99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvrAAP7/7JoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" alt="Skærmbillede fra Bilspil" width="480" height="480"></span>
-  <span class="body">
-    <span class="meta"><span class="genre">Nyt spil</span><span class="ver" title="Nyeste version" hidden></span></span>
-    <span class="name">Bilspil</span>
-    <span class="desc">Et nyt spil fra seranodk.</span>
     <span class="play">Spil <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l7 5-7 5z"/></svg></span>
   </span>
 </a>
@@ -177,7 +168,11 @@ footer a{color:var(--fg)}
     .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
     .then(function(list){
       list.filter(function(r){return r.has_pages&&!r.fork&&!r.archived&&!known[r.name.toLowerCase()]})
-          .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(add);
+          .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(function(r){
+            /* kun repos, der faktisk har et spil (index.html) */
+            fetch('https://raw.githubusercontent.com/'+OWNER+'/'+r.name+'/'+(r.default_branch||'main')+'/index.html',{method:'HEAD'})
+              .then(function(x){if(x.ok)add(r);}).catch(function(){});
+          });
     }).catch(function(){});
 })();
 </script>

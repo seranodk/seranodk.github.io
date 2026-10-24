@@ -99,6 +99,8 @@ def image(repo):
         try:
             from screenshot import take
             take(page_url(repo), f)
+            if os.path.getsize(f) < 3000:   # tomt billede: spillet var ikke klar, prøv igen næste gang
+                os.remove(f); print('  billedet var tomt, prøver igen senere')
         except Exception as e:
             print('  skærmbillede fejlede:', e)
     if not os.path.exists(f): return ''
@@ -119,6 +121,8 @@ if found is None:
 else:
     for r in found:
         if r['name'].lower() in curated: continue
+        if get(f'https://raw.githubusercontent.com/{OWNER}/{r["name"]}/{r.get("default_branch","main")}/index.html') is None:
+            print('Springer over (ingen index.html endnu):', r['name']); CACHE.pop(r['name'], None); continue
         print('Fundet nyt spil:', r['name'])
         games.append(dict(auto_info(r), repo=r['name']))
 for g in games:
@@ -250,7 +254,11 @@ SCRIPT=r'''<script>
     .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
     .then(function(list){
       list.filter(function(r){return r.has_pages&&!r.fork&&!r.archived&&!known[r.name.toLowerCase()]})
-          .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(add);
+          .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(function(r){
+            /* kun repos, der faktisk har et spil (index.html) */
+            fetch('https://raw.githubusercontent.com/'+OWNER+'/'+r.name+'/'+(r.default_branch||'main')+'/index.html',{method:'HEAD'})
+              .then(function(x){if(x.ok)add(r);}).catch(function(){});
+          });
     }).catch(function(){});
 })();
 </script>'''
