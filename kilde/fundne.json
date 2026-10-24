@@ -1,4 +1,10 @@
 {
+  "Bilspil": {
+    "beskrivelse": "Racerspil i browseren, inspireret af gameplayet fra Lotus-spillene på 16-bit konsollerne. Lavet så et barn på 6 år kan spille det.",
+    "genre": "Nyt spil",
+    "navn": "Bilspil – Racer",
+    "version": ""
+  },
   "Brikker": {
     "version": "0.2.0"
   },
