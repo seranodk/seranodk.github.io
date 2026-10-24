@@ -12,7 +12,7 @@
     "beskrivelse": "Et 16-bit tennisspil til mobil og browser med SNES-tennis som forbillede: kameraet bag banen, fire slagknapper, retningsstyret sigte og rigtig tennistælling.",
     "genre": "Nyt spil",
     "navn": "Tennis",
-    "version": "1.0"
+    "version": "2.4"
   },
   "sensible": {
     "version": "0.35.1"
