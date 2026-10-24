@@ -1,4 +1,10 @@
 {
+  "Bilspil": {
+    "beskrivelse": "Et nyt spil fra seranodk.",
+    "genre": "Nyt spil",
+    "navn": "Bilspil",
+    "version": ""
+  },
   "Brikker": {
     "version": "0.2.0"
   },
