@@ -3,10 +3,16 @@
     "version": "0.2.0"
   },
   "Ishockey": {
-    "version": "0.6.0"
+    "version": "0.7.0"
   },
   "Labyrint": {
     "version": "0.2.0"
+  },
+  "Tennis": {
+    "beskrivelse": "Tennis – 16-bit tennisspil til mobil og browser (v1.0)",
+    "genre": "Nyt spil",
+    "navn": "Tennis",
+    "version": ""
   },
   "sensible": {
     "version": "0.35.1"
