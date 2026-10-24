@@ -6,9 +6,21 @@ Landingssiden på https://seranodk.github.io/ med links til spillene:
 
 Versionsnumrene på kortene hentes automatisk fra hvert spils `index.html`, når siden åbnes.
 
+## Nye spil kommer automatisk
+En GitHub Action (`.github/workflows/opdater.yml`) kører hver time. Den finder alle offentlige repos hos seranodk, som har GitHub Pages slået til, og lægger nye spil på siden med et ingame-skærmbillede og en kort beskrivelse.
+
+- **Navn, genre og beskrivelse** tages fra spillets `<meta name="spil:navn">`, `<meta name="spil:genre">` og `<meta name="description">`. Mangler de, bruges overskriften og første afsnit i spillets README.
+- **Skærmbillede** tages automatisk første gang. Slet billedet i `kilde/billeder/`, så tages et nyt ved næste kørsel.
+- **Håndskrevne tekster** til et spil skrives i `kilde/spil.json`. De går forud for det automatiske.
+- **Skjul et repo**, der ikke er et spil: skriv navnet i `"skjul"` i `kilde/spil.json`.
+- Kør den med det samme under **Actions → Opdater spilhal → Run workflow**.
+
 ## Filer
 - `index.html` – selve siden (bygget, med billederne indlejret)
-- `kilde/build.py` – bygger `index.html`; tekster, links og versioner rettes her
+- `kilde/build.py` – bygger `index.html`
+- `kilde/spil.json` – rækkefølge og håndskrevne tekster
+- `kilde/screenshot.py` – tager ingame-skærmbilleder
+- `kilde/fundne.json` – det sidst fundne om hvert spil (skrives automatisk)
 - `kilde/billeder/` – skærmbilleder fra spillene
 
-Byg igen med `python3 kilde/build.py`.
+Byg igen lokalt med `python3 kilde/build.py` (kræver `pip install playwright pillow`).

@@ -1,0 +1,14 @@
+{
+  "Brikker": {
+    "version": "0.2.0"
+  },
+  "Ishockey": {
+    "version": "0.6.0"
+  },
+  "Labyrint": {
+    "version": "0.2.0"
+  },
+  "sensible": {
+    "version": "0.35.1"
+  }
+}

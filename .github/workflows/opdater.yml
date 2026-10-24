@@ -1,0 +1,45 @@
+name: Opdater spilhal
+
+# Kigger efter nye spil hos seranodk og bygger index.html igen.
+on:
+  schedule:
+    - cron: "17 * * * *"   # hver time
+  workflow_dispatch:        # kan også startes i hånden under Actions
+  push:
+    branches: [main]
+    paths: ["kilde/**", ".github/workflows/opdater.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spilhal
+  cancel-in-progress: false
+
+jobs:
+  byg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installer værktøjer
+        run: |
+          pip install playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Byg siden
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python kilde/build.py
+      - name: Gem ændringer
+        run: |
+          git add -A index.html kilde/
+          if git diff --cached --quiet; then
+            echo "Ingen nye spil eller ændringer."
+          else
+            git config user.name "spilhal-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Opdater spilhal automatisk"
+            git push
+          fi
