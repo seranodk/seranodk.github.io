@@ -119,6 +119,10 @@ if found is None:
         if repo.lower() not in curated and repo.lower() not in SKJUL:
             games.append(dict(info, repo=repo))
 else:
+    # brug repoets rigtige stavemåde (Pages skelner mellem store og små bogstaver)
+    real = {r['name'].lower(): r['name'] for r in found}
+    for g in games:
+        g['repo'] = real.get(g['repo'].lower(), g['repo'])
     for r in found:
         if r['name'].lower() in curated: continue
         if get(f'https://raw.githubusercontent.com/{OWNER}/{r["name"]}/{r.get("default_branch","main")}/index.html') is None:
