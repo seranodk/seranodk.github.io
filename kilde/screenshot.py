@@ -55,13 +55,20 @@ def _click_start(page):
 
 
 def _largest_canvas(page):
-    best = None
-    for c in page.query_selector_all("canvas"):
-        box = c.bounding_box()
-        if box and box["width"] > 50 and box["height"] > 50:
-            if not best or box["width"] * box["height"] > best["width"] * best["height"]:
-                best = box
-    return best
+    """Spillebanen: det største <canvas> eller den største "bræt"-agtige blok
+    (fx et gitter af kort i et vendespil). Gennemsigtige overlays tæller ikke."""
+    return page.evaluate("""() => {
+      const vis = e => { const r = e.getBoundingClientRect(), s = getComputedStyle(e);
+        return r.width > 50 && r.height > 50 && s.visibility !== 'hidden' && s.display !== 'none' ? r : null; };
+      const cand = [...document.querySelectorAll('canvas')];
+      document.querySelectorAll('[id*=board],[class*=board],[id*=grid],[class*=grid]').forEach(e => cand.push(e));
+      document.querySelectorAll('body *').forEach(e => {
+        const k = e.children; if (k.length >= 8 && [...k].every(c => c.tagName === k[0].tagName)) cand.push(e); });
+      let best = null;
+      for (const e of cand) { const r = vis(e); if (!r) continue;
+        if (e.tagName === 'CANVAS' && getComputedStyle(e).position === 'fixed' && r.height < innerHeight * 0.5) continue;
+        const a = r.width * r.height; if (!best || a > best.a) best = {x: r.x, y: r.y, width: r.width, height: r.height, a}; }
+      return best; }""")
 
 
 def take(url, out, wait_ms=2500):

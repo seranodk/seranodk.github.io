@@ -31,6 +31,12 @@
       "navn": "Tennis",
       "genre": "Tennis",
       "beskrivelse": "16-bit tennis med kameraet bag banen som i SNES-tiden. Fire slagknapper, rigtig tennistælling, otte spillere og tre underlag."
+    },
+    {
+      "repo": "Flipgame",
+      "navn": "Vendespil",
+      "genre": "Huskespil",
+      "beskrivelse": "Vend to kort ad gangen og find parrene. Til børn fra 4 år, med 15 slags billeder, tre brætstørrelser og spil for én eller to."
     }
   ]
 }
