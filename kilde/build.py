@@ -5,7 +5,7 @@ def b64(n): return 'data:image/webp;base64,'+base64.b64encode(open(os.path.join(
 games=[
  ('sensible','Sensible','0.35.1','Fodbold','https://seranodk.github.io/sensible/',
   'Top-down fodbold i Sensible Soccer-stil med rigtige hold fra Premier League, La Liga, Bundesliga og Superligaen. Hurtig kamp, venskabskamp eller to spillere.'),
- ('ishockey','Sensible Ishockey','0.6.0','Ishockey','https://seranodk.github.io/Ishockey/',
+ ('ishockey','Ishockey','0.7.0','Ishockey','https://seranodk.github.io/Ishockey/',
   'Retro ishockey ovenfra på en lodret bane. Skøjt, aflevér og skyd med tommelfingeren, og slå icing og offside til eller fra.'),
  ('brikker','Brikker','0.2.0','Murbryder','https://seranodk.github.io/Brikker/',
   'Murbryder med fysik som i Arkanoid. Otte runder, sølv- og guldbrikker og syv kapsler. Vælg mellem temaerne Neon, Klassisk og Papir.'),

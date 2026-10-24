@@ -2,7 +2,7 @@
 Små spil til tidsfordriv
 
 Landingssiden på https://seranodk.github.io/ med links til spillene:
-[Sensible](https://seranodk.github.io/sensible/) · [Sensible Ishockey](https://seranodk.github.io/Ishockey/) · [Brikker](https://seranodk.github.io/Brikker/) · [Labyrint](https://seranodk.github.io/Labyrint/)
+[Sensible](https://seranodk.github.io/sensible/) · [Ishockey](https://seranodk.github.io/Ishockey/) · [Brikker](https://seranodk.github.io/Brikker/) · [Labyrint](https://seranodk.github.io/Labyrint/)
 
 Versionsnumrene på kortene hentes automatisk fra hvert spils `index.html`, når siden åbnes.
 
