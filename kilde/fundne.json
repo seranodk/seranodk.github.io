@@ -3,10 +3,10 @@
     "version": "0.2.0"
   },
   "Ishockey": {
-    "version": "0.7.0"
+    "version": "0.8.0"
   },
   "Labyrint": {
-    "version": "0.2.1"
+    "version": "0.2.2"
   },
   "Tennis": {
     "beskrivelse": "Et 16-bit tennisspil til mobil og browser med SNES-tennis som forbillede: kameraet bag banen, fire slagknapper, retningsstyret sigte og rigtig tennistælling.",
