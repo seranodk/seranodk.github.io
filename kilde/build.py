@@ -136,7 +136,7 @@ def card(g):
     ver = f'<span class="ver" title="Nyeste version">v{e(g["version"])}</span>' if g['version'] else '<span class="ver" title="Nyeste version" hidden></span>'
     img = f'<img src="{g["img"]}" alt="Skærmbillede fra {e(g["navn"])}" width="480" height="480">' if g['img'] else ''
     return f"""
-<a class="card" href="{g['url']}" data-game="{g['url']}" aria-label="Spil {e(g['navn'])}">
+<a class="card" href="{g['url']}" data-game="{g['url']}" data-repo="{e(g['repo'])}" aria-label="Spil {e(g['navn'])}">
   <span class="shot">{img}</span>
   <span class="body">
     <span class="meta"><span class="genre">{e(g['genre'])}</span>{ver}</span>
@@ -182,6 +182,8 @@ h1 .coin{color:var(--accent)}
 .shot{display:block;aspect-ratio:1;max-width:100%;border-radius:22%;overflow:hidden;background:#000;
   box-shadow:0 0 0 1px rgba(255,255,255,.08) inset}
 .shot img{display:block;width:100%;height:100%;object-fit:cover}
+.letter{display:grid;place-items:center;width:100%;height:100%;font-family:var(--display);font-size:44px;color:var(--bg);background:var(--accent)}
+.card.new .genre{color:var(--accent)}
 .body{display:flex;flex-direction:column;gap:4px;min-width:0}
 .meta{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
 .genre{text-transform:uppercase;letter-spacing:.08em;font-weight:700}
@@ -195,30 +197,73 @@ footer a{color:var(--fg)}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 </style>'''
 SCRIPT=r'''<script>
-/* Henter versionsnummeret direkte fra hvert spils index.html på GitHub Pages,
-   så kortene altid viser den version, der ligger ude lige nu. */
+/* 1) Henter versionsnummeret fra hvert spils index.html, så kortet viser den version, der ligger ude nu.
+   2) Spørger GitHub, hver gang siden åbnes, om der er kommet et nyt repo med Pages.
+      Et nyt spil vises med det samme; det rigtige skærmbillede kommer, når den automatiske opdatering har kørt. */
 (function(){
+  var OWNER='__OWNER__', BASE='https://'+OWNER+'.github.io/', SKJUL=__SKJUL__;
   var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)/;
   var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)/;
-  document.querySelectorAll('.card[data-game]').forEach(function(card){
+  var grid=document.querySelector('.grid');
+  function version(card){
     var badge=card.querySelector('.ver');
     fetch(card.dataset.game+'?t='+Date.now(),{cache:'no-store'})
       .then(function(r){return r.ok?r.text():Promise.reject(r.status)})
       .then(function(html){var m=html.match(RX)||html.match(RX2); if(m){badge.textContent='v'+m[1];badge.hidden=false;}})
       .catch(function(){});
-  });
+  }
+  function count(){
+    var n=grid.querySelectorAll('.card').length, el=document.getElementById('count');
+    var w=['','Ét lille spil','To små spil','Tre små spil','Fire små spil','Fem små spil','Seks små spil','Syv små spil','Otte små spil','Ni små spil','Ti små spil'];
+    if(el) el.textContent=w[n]||(n+' små spil');
+  }
+  function clean(t){return t.replace(/!\[[^\]]*\]\([^)]*\)/g,'').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/[*_`]/g,'').trim();}
+  function shorten(t){if(t.length<=190)return t;var c=t.slice(0,190),e=Math.max(c.lastIndexOf('. '),c.lastIndexOf('! '));return e>60?c.slice(0,e+1):c.replace(/\s+\S*$/,'')+'…';}
+  function readme(r,card){
+    fetch('https://raw.githubusercontent.com/'+OWNER+'/'+r.name+'/'+(r.default_branch||'main')+'/README.md')
+      .then(function(x){return x.ok?x.text():Promise.reject()})
+      .then(function(md){
+        var h=md.split('\n').filter(function(l){return l.indexOf('# ')===0})[0];
+        if(h) card.querySelector('.name').textContent=clean(h.slice(2));
+        var blocks=md.split(/\n\s*\n/);
+        for(var i=0;i<blocks.length;i++){var b=blocks[i].trim();
+          if(b&&!/^([#|\-*>`!<]|\d+\.)/.test(b)){
+            card.querySelector('.desc').textContent=shorten(clean(b.split(/\s+/).join(' ')).replace(/\s*\(?v?\d+\.\d+(\.\d+)?\)?\.?$/,''));break;}}
+      }).catch(function(){});
+  }
+  function add(r){
+    var url=BASE+r.name+'/', a=document.createElement('a');
+    a.className='card new'; a.href=url; a.dataset.game=url; a.dataset.repo=r.name; a.setAttribute('aria-label','Spil '+r.name);
+    a.innerHTML='<span class="shot"><span class="letter"></span></span><span class="body"><span class="meta"><span class="genre">Nyt spil</span><span class="ver" title="Nyeste version" hidden></span></span><span class="name"></span><span class="desc"></span><span class="play">Spil <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l7 5-7 5z"/></svg></span></span>';
+    a.querySelector('.letter').textContent=r.name.charAt(0).toUpperCase();
+    a.querySelector('.name').textContent=r.name;
+    a.querySelector('.desc').textContent=r.description||'Et nyt spil. Billede og beskrivelse kommer om lidt.';
+    var img=new Image(); img.alt='Ikon for '+r.name; img.width=480; img.height=480;
+    img.onload=function(){var s=a.querySelector('.shot');s.innerHTML='';s.appendChild(img);};
+    img.src=url+'icon-512.png';
+    grid.appendChild(a); version(a); readme(r,a); count();
+  }
+  document.querySelectorAll('.card[data-game]').forEach(version);
+  var known={}; SKJUL.concat([OWNER+'.github.io']).forEach(function(n){known[n.toLowerCase()]=1});
+  document.querySelectorAll('.card[data-repo]').forEach(function(c){known[c.dataset.repo.toLowerCase()]=1});
+  fetch('https://api.github.com/users/'+OWNER+'/repos?per_page=100&type=owner&t='+Date.now())
+    .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
+    .then(function(list){
+      list.filter(function(r){return r.has_pages&&!r.fork&&!r.archived&&!known[r.name.toLowerCase()]})
+          .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(add);
+    }).catch(function(){});
 })();
 </script>'''
 main=f'''<main class="wrap">
 <header>
   <h1>Troels' Spilhal<span class="coin">.</span></h1>
-  <p class="lede">{COUNT}, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
+  <p class="lede"><span id="count">{COUNT}</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
 </header>
 <nav class="grid" aria-label="Spil">{cards}
 </nav>
 <footer>Tip: Åbn et spil på mobilen og vælg <b>Føj til hjemmeskærm</b>, så starter det i fuld skærm som en app. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
 </main>
-{SCRIPT}'''
+{SCRIPT.replace('__OWNER__', OWNER).replace('__SKJUL__', json.dumps(sorted(SKJUL)))}'''
 open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="da">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'+head.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')+'\n</head>\n<body>\n'+main+'\n</body>\n</html>\n')
 if '--artifact' in sys.argv:
     open(os.path.join(D,'artifact.html'),'w',encoding='utf-8').write(head+'\n'+main)

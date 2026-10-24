@@ -7,7 +7,7 @@ Landingssiden på https://seranodk.github.io/ med links til spillene:
 Versionsnumrene på kortene hentes automatisk fra hvert spils `index.html`, når siden åbnes.
 
 ## Nye spil kommer automatisk
-En GitHub Action (`.github/workflows/opdater.yml`) kører hver time. Den finder alle offentlige repos hos seranodk, som har GitHub Pages slået til, og lægger nye spil på siden med et ingame-skærmbillede og en kort beskrivelse.
+Siden spørger selv GitHub, hver gang den åbnes, så et nyt repo med Pages vises med det samme (med spillets app-ikon, indtil skærmbilledet er taget). En GitHub Action (`.github/workflows/opdater.yml`) kører hvert 10. minut og gør kortet færdigt: Den finder alle offentlige repos hos seranodk, som har GitHub Pages slået til, og lægger nye spil på siden med et ingame-skærmbillede og en kort beskrivelse.
 
 - **Navn, genre og beskrivelse** tages fra spillets `<meta name="spil:navn">`, `<meta name="spil:genre">` og `<meta name="description">`. Mangler de, bruges overskriften og første afsnit i spillets README.
 - **Skærmbillede** tages automatisk første gang. Slet billedet i `kilde/billeder/`, så tages et nyt ved næste kørsel.
