@@ -15,10 +15,10 @@
     "version": "0.8.0"
   },
   "Jagerfly": {
-    "beskrivelse": "Et top-down skydespil til mobil og browser, hvor du flyver et F-35 og skyder med maskingevær og missiler. Lavet, så en 6-årig kan spille det.",
+    "beskrivelse": "Et top-down skydespil til mobil og browser, hvor du flyver jagerfly og skyder med maskingevær og missiler. Du starter med et F-16 og låser bedre fly op undervejs.",
     "genre": "Nyt spil",
     "navn": "Jagerfly",
-    "version": "1.2"
+    "version": "1.3"
   },
   "Labyrint": {
     "version": "0.2.2"
