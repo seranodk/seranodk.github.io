@@ -2,13 +2,35 @@
   "bruger": "seranodk",
   "skjul": [],
   "spil": [
-    {"repo": "sensible", "navn": "Sensible", "genre": "Fodbold",
-     "beskrivelse": "Top-down fodbold i Sensible Soccer-stil med rigtige hold fra Premier League, La Liga, Bundesliga og Superligaen. Hurtig kamp, venskabskamp eller to spillere."},
-    {"repo": "Ishockey", "navn": "Ishockey", "genre": "Ishockey",
-     "beskrivelse": "Retro ishockey ovenfra på en lodret bane. Skøjt, aflevér og skyd med tommelfingeren, og slå icing og offside til eller fra."},
-    {"repo": "Brikker", "navn": "Brikker", "genre": "Murbryder",
-     "beskrivelse": "Murbryder med fysik som i Arkanoid. Otte runder, sølv- og guldbrikker og syv kapsler. Vælg mellem temaerne Neon, Klassisk og Papir."},
-    {"repo": "Labyrint", "navn": "Labyrint", "genre": "Labyrint",
-     "beskrivelse": "Spis alle prikker og hold dig fra de fire jægere. Nye baner i fem størrelser og fem temaer, og et joystick der aldrig kører fast."}
+    {
+      "repo": "sensible",
+      "navn": "Sensible",
+      "genre": "Fodbold",
+      "beskrivelse": "Top-down fodbold i Sensible Soccer-stil med rigtige hold fra Premier League, La Liga, Bundesliga og Superligaen. Hurtig kamp, venskabskamp eller to spillere."
+    },
+    {
+      "repo": "Ishockey",
+      "navn": "Ishockey",
+      "genre": "Ishockey",
+      "beskrivelse": "Retro ishockey ovenfra på en lodret bane. Skøjt, aflevér og skyd med tommelfingeren, og slå icing og offside til eller fra."
+    },
+    {
+      "repo": "Brikker",
+      "navn": "Brikker",
+      "genre": "Murbryder",
+      "beskrivelse": "Murbryder med fysik som i Arkanoid. Otte runder, sølv- og guldbrikker og syv kapsler. Vælg mellem temaerne Neon, Klassisk og Papir."
+    },
+    {
+      "repo": "Labyrint",
+      "navn": "Labyrint",
+      "genre": "Labyrint",
+      "beskrivelse": "Spis alle prikker og hold dig fra de fire jægere. Nye baner i fem størrelser og fem temaer, og et joystick der aldrig kører fast."
+    },
+    {
+      "repo": "Tennis",
+      "navn": "Tennis",
+      "genre": "Tennis",
+      "beskrivelse": "16-bit tennis med kameraet bag banen som i SNES-tiden. Fire slagknapper, rigtig tennistælling, otte spillere og tre underlag."
+    }
   ]
 }

@@ -3,9 +3,9 @@
 
 1. Spil i kilde/spil.json kommer først, med deres håndskrevne tekster.
 2. Derefter finder scriptet selv alle andre offentlige repos med GitHub Pages
-   og lægger dem på som nye spil. Navn, genre og beskrivelse tages fra spillets
-   <meta>-tags (spil:navn, spil:genre, description), ellers fra README
-   (overskrift og første afsnit).
+   og lægger dem på som nye spil. Navnet tages fra <meta name="spil:navn"> eller README-overskriften,
+   beskrivelsen fra første afsnit i README (ellers <meta name="description">)
+   og genren fra <meta name="spil:genre">.
 3. Mangler et spil et billede i kilde/billeder/, tages et ingame-skærmbillede.
 Kan køres uden net; så bruges kun spil.json og de gemte data.
 """
@@ -18,6 +18,8 @@ SKJUL = {x.lower() for x in CFG.get('skjul', [])} | {f'{OWNER}.github.io'.lower(
 CACHE_F = os.path.join(D, 'fundne.json')   # det sidst fundne om hvert spil
 CACHE = json.load(open(CACHE_F, encoding='utf-8')) if os.path.exists(CACHE_F) else {}
 RX_VER = re.compile(r"""(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)""")
+# reserve: et versionsnummer som "v1.0" i <title> eller <meta name="description">
+RX_VER2 = re.compile(r'<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)')
 NET = '--offline' not in sys.argv
 
 def get(url, api=False):
@@ -68,7 +70,8 @@ def from_readme(md):
     for block in re.split(r'\n\s*\n', md):
         b = block.strip()
         if b and not re.match(r'[#|\-*>`!<]|\d+\.', b):
-            para = clean_md(' '.join(b.split())); break
+            para = clean_md(' '.join(b.split()))
+            para = re.sub(r'\s*\(?v?\d+\.\d+(\.\d+)?\)?\.?$', '', para).strip(); break
     return title, para
 
 def auto_info(r):
@@ -81,12 +84,12 @@ def auto_info(r):
     return {
         'navn': title or repo,
         'genre': meta(doc, 'spil:genre') or 'Nyt spil',
-        'beskrivelse': shorten(meta(doc, 'description') or r.get('description') or rp or 'Et nyt spil fra ' + OWNER + '.'),
+        'beskrivelse': shorten(rp or meta(doc, 'description') or r.get('description') or 'Et nyt spil fra ' + OWNER + '.'),
     }
 
 def version(repo, doc=None):
     doc = doc if doc is not None else get(page_url(repo))
-    m = RX_VER.search(doc or '')
+    m = RX_VER.search(doc or '') or RX_VER2.search(doc or '')
     return m.group(1) if m else CACHE.get(repo, {}).get('version', '')
 
 def image(repo):
@@ -196,11 +199,12 @@ SCRIPT=r'''<script>
    så kortene altid viser den version, der ligger ude lige nu. */
 (function(){
   var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)/;
+  var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)/;
   document.querySelectorAll('.card[data-game]').forEach(function(card){
     var badge=card.querySelector('.ver');
     fetch(card.dataset.game+'?t='+Date.now(),{cache:'no-store'})
       .then(function(r){return r.ok?r.text():Promise.reject(r.status)})
-      .then(function(html){var m=html.match(RX); if(m){badge.textContent='v'+m[1];badge.hidden=false;}})
+      .then(function(html){var m=html.match(RX)||html.match(RX2); if(m){badge.textContent='v'+m[1];badge.hidden=false;}})
       .catch(function(){});
   });
 })();
