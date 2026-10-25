@@ -3,7 +3,7 @@ name: Opdater spilhal
 # Kigger efter nye spil hos seranodk og bygger index.html igen.
 on:
   schedule:
-    - cron: "*/10 * * * *"   # hvert 10. minut (GitHub kan forsinke lidt)
+    - cron: "*/5 * * * *"   # hvert 5. minut, det oftest GitHub tillader
   workflow_dispatch:        # kan også startes i hånden under Actions
   push:
     branches: [main]

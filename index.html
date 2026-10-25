@@ -134,6 +134,7 @@ footer a{color:var(--fg)}
 </main>
 <script>
 /* 1) Henter versionsnummeret fra hvert spils index.html, så kortet viser den version, der ligger ude nu.
+      Linket får versionen på (?v=0.35.1), så spillerne altid åbner den nyeste udgave.
    2) Spørger GitHub, hver gang siden åbnes, om der er kommet et nyt repo med Pages.
       Et nyt spil vises med det samme; det rigtige skærmbillede kommer, når den automatiske opdatering har kørt. */
 (function(){
@@ -145,7 +146,10 @@ footer a{color:var(--fg)}
     var badge=card.querySelector('.ver');
     fetch(card.dataset.game+'?t='+Date.now(),{cache:'no-store'})
       .then(function(r){return r.ok?r.text():Promise.reject(r.status)})
-      .then(function(html){var m=html.match(RX)||html.match(RX2); if(m){badge.textContent='v'+m[1];badge.hidden=false;}})
+      .then(function(html){var m=html.match(RX)||html.match(RX2); if(m){
+        badge.textContent='v'+m[1];badge.hidden=false;
+        /* versionen i linket gør, at browseren henter den nye udgave i stedet for en gemt kopi */
+        card.href=card.dataset.game+'?v='+m[1];}})
       .catch(function(){});
   }
   function count(){
@@ -182,6 +186,7 @@ footer a{color:var(--fg)}
   document.querySelectorAll('.card[data-game]').forEach(version);
   var known={}; SKJUL.concat([OWNER+'.github.io']).forEach(function(n){known[n.toLowerCase()]=1});
   document.querySelectorAll('.card[data-repo]').forEach(function(c){known[c.dataset.repo.toLowerCase()]=1});
+  function discover(){
   fetch('https://api.github.com/users/'+OWNER+'/repos?per_page=100&type=owner&t='+Date.now())
     .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
     .then(function(list){
@@ -189,9 +194,17 @@ footer a{color:var(--fg)}
           .sort(function(x,y){return x.created_at<y.created_at?-1:1}).forEach(function(r){
             /* kun repos, der faktisk har et spil (index.html) */
             fetch('https://raw.githubusercontent.com/'+OWNER+'/'+r.name+'/'+(r.default_branch||'main')+'/index.html',{method:'HEAD'})
-              .then(function(x){if(x.ok)add(r);}).catch(function(){});
+              .then(function(x){if(x.ok&&!known[r.name.toLowerCase()]){known[r.name.toLowerCase()]=1;add(r);}}).catch(function(){});
           });
     }).catch(function(){});
+  }
+  discover();
+  /* Så længe siden er åben: tjek versioner hvert minut og nye spil hvert 5. minut
+     (GitHub tillader 60 opslag i timen uden login). Også straks, når man vender tilbage til siden. */
+  function refresh(){document.querySelectorAll('.card[data-game]').forEach(version);}
+  var ticks=0;
+  setInterval(function(){if(document.hidden)return; refresh(); if(++ticks%5===0)discover();},60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
 })();
 </script>
 </body>
