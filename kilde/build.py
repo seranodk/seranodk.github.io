@@ -17,9 +17,9 @@ OWNER = CFG['bruger']
 SKJUL = {x.lower() for x in CFG.get('skjul', [])} | {f'{OWNER}.github.io'.lower()}
 CACHE_F = os.path.join(D, 'fundne.json')   # det sidst fundne om hvert spil
 CACHE = json.load(open(CACHE_F, encoding='utf-8')) if os.path.exists(CACHE_F) else {}
-RX_VER = re.compile(r"""(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)""")
+RX_VER = re.compile(r"""(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+(?:\.\d+)?)""")
 # reserve: et versionsnummer som "v1.0" i <title> eller <meta name="description">
-RX_VER2 = re.compile(r'<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)')
+RX_VER2 = re.compile(r'<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?(?:\bv|\s)(\d+\.\d+(?:\.\d+)?)\b')
 NET = '--offline' not in sys.argv
 
 def get(url, api=False):
@@ -211,8 +211,8 @@ SCRIPT=r'''<script>
       Et nyt spil vises med det samme; det rigtige skærmbillede kommer, når den automatiske opdatering har kørt. */
 (function(){
   var OWNER='__OWNER__', BASE='https://'+OWNER+'.github.io/', SKJUL=__SKJUL__;
-  var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)/;
-  var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)/;
+  var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+(?:\.\d+)?)/;
+  var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?(?:\bv|\s)(\d+\.\d+(?:\.\d+)?)\b/;
   var grid=document.querySelector('.grid');
   function version(card){
     var badge=card.querySelector('.ver');

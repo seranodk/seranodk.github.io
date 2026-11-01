@@ -139,8 +139,8 @@ footer a{color:var(--fg)}
       Et nyt spil vises med det samme; det rigtige skærmbillede kommer, når den automatiske opdatering har kørt. */
 (function(){
   var OWNER='seranodk', BASE='https://'+OWNER+'.github.io/', SKJUL=["seranodk.github.io"];
-  var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+\.\d+)/;
-  var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?\bv(\d+\.\d+(?:\.\d+)?)/;
+  var RX=/(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+(?:\.\d+)?)/;
+  var RX2=/<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?(?:\bv|\s)(\d+\.\d+(?:\.\d+)?)\b/;
   var grid=document.querySelector('.grid');
   function version(card){
     var badge=card.querySelector('.ver');
