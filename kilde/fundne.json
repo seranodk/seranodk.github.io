@@ -3,7 +3,7 @@
     "beskrivelse": "Racerspil i browseren, inspireret af gameplayet fra Lotus-spillene på 16-bit konsollerne. Lavet så et barn på 6 år kan spille det.",
     "genre": "Nyt spil",
     "navn": "Bilspil – Racer",
-    "version": ""
+    "version": "2.1"
   },
   "Brikker": {
     "version": "0.2.0"
@@ -24,7 +24,7 @@
     "version": "0.2.2"
   },
   "Sensible": {
-    "version": "0.37.1"
+    "version": "0.71"
   },
   "Tennis": {
     "beskrivelse": "Et 16-bit tennisspil til mobil og browser med SNES-tennis som forbillede: kameraet bag banen, fire slagknapper, retningsstyret sigte og rigtig tennistælling.",
