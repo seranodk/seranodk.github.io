@@ -11,6 +11,7 @@ Siden spørger selv GitHub, hver gang den åbnes, så et nyt repo med Pages vise
 
 - **Navn, genre og beskrivelse** tages fra spillets `<meta name="spil:navn">`, `<meta name="spil:genre">` og `<meta name="description">`. Mangler de, bruges overskriften og første afsnit i spillets README.
 - **Skærmbillede** tages automatisk første gang. Slet billedet i `kilde/billeder/`, så tages et nyt ved næste kørsel.
+- **Skærmbillede til et bestemt spil** kan styres under `"skaermbilleder"` i `kilde/spil.json`: hvilke knapper der trykkes på, taster der holdes nede, ventetid, liggende format og hvilket udsnit der bruges.
 - **Håndskrevne tekster** til et spil skrives i `kilde/spil.json`. De går forud for det automatiske.
 - **Skjul et repo**, der ikke er et spil: skriv navnet i `"skjul"` i `kilde/spil.json`.
 - Kør den med det samme under **Actions → Opdater spilhal → Run workflow**.

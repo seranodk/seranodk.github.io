@@ -20,6 +20,7 @@ CACHE = json.load(open(CACHE_F, encoding='utf-8')) if os.path.exists(CACHE_F) el
 RX_VER = re.compile(r"""(?:id="ver[^"]*"[^>]*>|VERSION\s*=\s*['"])[^0-9'"<]*(\d+\.\d+(?:\.\d+)?)""")
 # reserve: et versionsnummer som "v1.0" i <title> eller <meta name="description">
 RX_VER2 = re.compile(r'<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"]*?(?:\bv|\s)(\d+\.\d+(?:\.\d+)?)\b')
+SHOTS = {k.lower(): v for k, v in CFG.get('skaermbilleder', {}).items()}
 NET = '--offline' not in sys.argv
 
 def get(url, api=False):
@@ -98,7 +99,7 @@ def image(repo):
         print('  tager skærmbillede af', repo)
         try:
             from screenshot import take
-            take(page_url(repo), f)
+            take(page_url(repo), f, opts=SHOTS.get(repo.lower()))
             if os.path.getsize(f) < 3000:   # tomt billede: spillet var ikke klar, prøv igen næste gang
                 os.remove(f); print('  billedet var tomt, prøver igen senere')
         except Exception as e:

@@ -44,5 +44,34 @@
       "genre": "Huskespil",
       "beskrivelse": "Vend to kort ad gangen og find parrene. Til børn fra 4 år, med 15 slags billeder, tre brætstørrelser og spil for én eller to."
     }
-  ]
+  ],
+  "skaermbilleder": {
+    "Bilspil": {
+      "klik": [
+        "#goBtn"
+      ],
+      "taster": [
+        "ArrowUp"
+      ],
+      "ventetid": 4500,
+      "liggende": true
+    },
+    "handbold": {
+      "klik": [
+        "#startBtn"
+      ],
+      "ventetid": 4000,
+      "udsnit": 0
+    },
+    "Jagerfly": {
+      "klik": [
+        "#start"
+      ],
+      "taster": [
+        "Space"
+      ],
+      "ventetid": 6000,
+      "liggende": true
+    }
+  }
 }
