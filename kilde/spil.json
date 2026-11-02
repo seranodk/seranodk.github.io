@@ -3,6 +3,12 @@
   "skjul": [],
   "spil": [
     {
+      "repo": "Formel1",
+      "navn": "Formel 1",
+      "genre": "Racer",
+      "beskrivelse": "Formel 1 ovenfra i TV-stil med alle 2026-holdene og -kørerne. Kør på 10 rigtige baner, blandt dem Monaco og Spa, og natløbene i Singapore og Las Vegas."
+    },
+    {
       "repo": "Sensible",
       "navn": "Sensible",
       "genre": "Fodbold",
