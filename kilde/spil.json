@@ -43,6 +43,12 @@
       "navn": "Vendespil",
       "genre": "Huskespil",
       "beskrivelse": "Vend to kort ad gangen og find parrene. Til børn fra 4 år, med 15 slags billeder, tre brætstørrelser og spil for én eller to."
+    },
+    {
+      "repo": "Maskiner",
+      "navn": "Maskiner",
+      "genre": "Landbrug",
+      "beskrivelse": "Kør mejetærsker, traktor og gummiged på gården. Høst kornet, pløj marken med mågerne efter dig og grav jord til lastbilen. Joystick plus GAS og BAK, lavet til en 6-årig."
     }
   ],
   "skaermbilleder": {
@@ -72,6 +78,15 @@
       ],
       "ventetid": 6000,
       "liggende": true
+    },
+    "Maskiner": {
+      "klik": [
+        ".card[data-m=\"combine\"]"
+      ],
+      "taster": [
+        "ArrowUp"
+      ],
+      "ventetid": 4000
     }
   }
 }
