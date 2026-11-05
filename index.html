@@ -234,5 +234,12 @@ footer a{color:var(--fg)}
   document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
 })();
 </script>
+<script data-goatcounter="https://seranodk.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script>
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('.card[data-repo]'); if(!a||!window.goatcounter||!window.goatcounter.count) return;
+  window.goatcounter.count({path:'spil/'+a.dataset.repo, title:a.querySelector('.name').textContent, event:true});
+});
+</script>
 </body>
 </html>

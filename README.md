@@ -16,6 +16,9 @@ Siden spørger selv GitHub, hver gang den åbnes, så et nyt repo med Pages vise
 - **Skjul et repo**, der ikke er et spil: skriv navnet i `"skjul"` i `kilde/spil.json`.
 - Kør den med det samme under **Actions → Opdater spilhal → Run workflow**.
 
+## Besøgsstatistik
+Siden tæller besøg med [GoatCounter](https://www.goatcounter.com) (ingen cookies). Tallene ses på https://seranodk.goatcounter.com: antal besøg, hvor de kom fra, land, telefon/computer og hvilke spil der blev trykket på (under `spil/…`). Koden står under `"statistik"` i `kilde/spil.json`; tom = ingen statistik.
+
 ## Filer
 - `index.html` – selve siden (bygget, med billederne indlejret)
 - `kilde/build.py` – bygger `index.html`

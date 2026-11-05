@@ -290,7 +290,16 @@ main=f'''<main class="wrap">
 <footer>Tip: Åbn et spil på mobilen og vælg <b>Føj til hjemmeskærm</b>, så starter det i fuld skærm som en app. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
 </main>
 {SCRIPT.replace('__OWNER__', OWNER).replace('__SKJUL__', json.dumps(sorted(SKJUL)))}'''
-open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="da">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'+head.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')+'\n</head>\n<body>\n'+main+'\n</body>\n</html>\n')
+# Besøgsstatistik med GoatCounter (ingen cookies). Tæller sidevisninger og hvilke spil der trykkes på.
+STAT = CFG.get('statistik', '')
+STATS = (f"""<script data-goatcounter="https://{STAT}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script>
+document.addEventListener('click',function(e){{
+  var a=e.target.closest&&e.target.closest('.card[data-repo]'); if(!a||!window.goatcounter||!window.goatcounter.count) return;
+  window.goatcounter.count({{path:'spil/'+a.dataset.repo, title:a.querySelector('.name').textContent, event:true}});
+}});
+</script>""" if STAT else '')
+open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="da">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'+head.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')+'\n</head>\n<body>\n'+main+'\n'+STATS+'\n</body>\n</html>\n')
 if '--artifact' in sys.argv:
     open(os.path.join(D,'artifact.html'),'w',encoding='utf-8').write(head+'\n'+main)
 print('Bygget index.html med', len(games), 'spil')
