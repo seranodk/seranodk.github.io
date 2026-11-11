@@ -28,9 +28,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Installer værktøjer
-        run: |
-          pip install playwright pillow
-          python -m playwright install --with-deps chromium
+        # Browseren til skærmbilleder hentes først, når et nyt spil mangler et billede (se nedenfor).
+        # Den skal hente mange pakker fra Ubuntu, og det fejler af og til kortvarigt.
+        run: pip install playwright pillow
       - name: Byg siden og gem ændringer (hvert 5. minut i knap en time)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,9 +40,25 @@ jobs:
           # en kørsel startet af et push eller i hånden bygger kun én gang
           runder=1
           if [ "${{ github.event_name }}" = "schedule" ]; then runder=11; fi
+          browser=nej
+          hent_browser() {
+            # op til 3 forsøg; lykkes det ikke, prøver næste runde igen, og kørslen fejler ikke
+            for forsoeg in 1 2 3; do
+              if python -m playwright install --with-deps chromium; then browser=ja; return 0; fi
+              echo "Kunne ikke hente browseren (forsøg $forsoeg), venter 30 sekunder."
+              sleep 30; sudo apt-get update -q || true
+            done
+            return 1
+          }
+          export MANGLER_FIL="$RUNNER_TEMP/mangler.txt"
           for i in $(seq 1 $runder); do
             git pull -q --rebase origin main || true
+            rm -f "$MANGLER_FIL"
             python kilde/build.py || echo "Byg fejlede denne gang, prøver igen om 5 minutter."
+            if [ -s "$MANGLER_FIL" ] && [ "$browser" = nej ]; then
+              echo "Nyt spil uden skærmbillede: $(tr '\n' ' ' < "$MANGLER_FIL")- henter browser."
+              hent_browser && { python kilde/build.py || echo "Byg fejlede denne gang."; }
+            fi
             git add -A index.html kilde/
             if git diff --cached --quiet; then
               echo "$(date -u +%H:%M) Ingen nye spil eller ændringer."

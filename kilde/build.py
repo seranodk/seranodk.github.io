@@ -93,6 +93,8 @@ def version(repo, doc=None):
     m = RX_VER.search(doc or '') or RX_VER2.search(doc or '')
     return m.group(1) if m else CACHE.get(repo, {}).get('version', '')
 
+MANGLER = []   # spil uden skærmbillede
+
 def image(repo):
     f = os.path.join(D, 'billeder', repo.lower() + '.webp')
     if not os.path.exists(f) and NET:
@@ -104,7 +106,8 @@ def image(repo):
                 os.remove(f); print('  billedet var tomt, prøver igen senere')
         except Exception as e:
             print('  skærmbillede fejlede:', e)
-    if not os.path.exists(f): return ''
+    if not os.path.exists(f):
+        MANGLER.append(repo); return ''
     return 'data:image/webp;base64,' + base64.b64encode(open(f, 'rb').read()).decode()
 
 sys.path.insert(0, D)
@@ -303,3 +306,7 @@ open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html
 if '--artifact' in sys.argv:
     open(os.path.join(D,'artifact.html'),'w',encoding='utf-8').write(head+'\n'+main)
 print('Bygget index.html med', len(games), 'spil')
+if MANGLER:
+    print('Mangler skærmbillede:', ', '.join(MANGLER))
+    if os.environ.get('MANGLER_FIL'):   # fortæller GitHub-opdateringen, at den skal hente en browser
+        open(os.environ['MANGLER_FIL'], 'w').write('\n'.join(MANGLER))
