@@ -6,50 +6,80 @@
     {
       "repo": "Formel1",
       "navn": "Formel 1",
-      "genre": "Racer",
-      "beskrivelse": "Formel 1 ovenfra i TV-stil med alle 2026-holdene og -kørerne. Hurtig løb eller en hel sæson på 10 rigtige baner, med Monaco, Spa og natløb i Singapore og Las Vegas."
+      "genre": "Racerløb",
+      "beskrivelse": "Sæt dig bag rattet i en hel Formel 1-sæson. Kæmp om sejren i Monaco, Spa og om natten i Singapore og Las Vegas."
     },
     {
       "repo": "Sensible",
       "navn": "Sensible",
       "genre": "Fodbold",
-      "beskrivelse": "Top-down fodbold i Sensible Soccer-stil med rigtige hold fra Premier League, La Liga, Bundesliga og Superligaen. Hurtig kamp, venskabskamp eller to spillere."
+      "beskrivelse": "Klassisk fodbold ovenfra med høj fart og store mål. Vælg dit hold fra Europas bedste ligaer, eller udfordr en ven."
     },
     {
       "repo": "Ishockey",
       "navn": "Ishockey",
       "genre": "Ishockey",
-      "beskrivelse": "Retro ishockey ovenfra på en lodret bane. Spil DM-slutspil med Metal Ligaen-holdene eller Stanley Cup med NHL-holdene, alene eller to på ét tastatur."
+      "beskrivelse": "Hurtigt og hårdt retro-ishockey. Før dit hold gennem DM-slutspillet eller hele vejen til Stanley Cup."
     },
     {
       "repo": "Brikker",
       "navn": "Brikker",
-      "genre": "Murbryder",
-      "beskrivelse": "Murbryder med fysik som i Arkanoid. Otte runder, sølv- og guldbrikker og syv kapsler. Vælg mellem temaerne Neon, Klassisk og Papir."
+      "genre": "Arkade",
+      "beskrivelse": "Smadr muren, fang bonusserne og ryd banen. Otte runder klassisk arkade-action i neon, retro eller papir."
     },
     {
       "repo": "Labyrint",
       "navn": "Labyrint",
-      "genre": "Labyrint",
-      "beskrivelse": "Spis alle prikker og hold dig fra de fire jægere. Nye baner i fem størrelser og fem temaer, og et joystick der aldrig kører fast."
+      "genre": "Arkade",
+      "beskrivelse": "Spis alle prikkerne, før jægerne fanger dig. En ny labyrint hver gang, i fem størrelser og fem flotte temaer."
     },
     {
       "repo": "Tennis",
       "navn": "Tennis",
       "genre": "Tennis",
-      "beskrivelse": "16-bit tennis med kameraet bag banen som i SNES-tiden. Fire slagknapper, rigtig tennistælling, otte spillere og tre underlag."
+      "beskrivelse": "Retro-tennis med kameraet bag banen. Server, lob og smash dig til sejren på grus, græs og hardcourt."
     },
     {
       "repo": "Flipgame",
       "navn": "Vendespil",
       "genre": "Huskespil",
-      "beskrivelse": "Vend to kort ad gangen og find parrene. Til børn fra 4 år, med 15 slags billeder, tre brætstørrelser og spil for én eller to."
+      "beskrivelse": "Vend kortene og find de ens par. Et hyggeligt huskespil for børn fra 4 år, alene eller sammen med en voksen."
     },
     {
       "repo": "Maskiner",
       "navn": "Maskiner",
       "genre": "Landbrug",
-      "beskrivelse": "Kør mejetærsker, traktor, gummiged, kran og lastbil ovenfra. Høst kornet, pløj marken, grav jord, byg et hus og kør varer ud i byen. Styrepind plus GAS og BAK, lavet til en 6-årig."
+      "beskrivelse": "Høst kornet, pløj marken og byg et hus. Kør mejetærsker, traktor, gummiged, kran og lastbil, lige til små hænder."
+    },
+    {
+      "repo": "Bilspil",
+      "navn": "Racer",
+      "genre": "Bilræs",
+      "beskrivelse": "Vælg din drømmebil og kør om kap mod hele feltet. Fuld fart på flotte baner, og nemt nok til de yngste kørere."
+    },
+    {
+      "repo": "Jagerfly",
+      "navn": "Jagerfly",
+      "genre": "Action",
+      "beskrivelse": "Flyv over hav og øer, og skyd fjenderne ned. Lås nye jagerfly op gennem 14 baner fyldt med action."
+    },
+    {
+      "repo": "handbold",
+      "navn": "Håndbold",
+      "genre": "Håndbold",
+      "beskrivelse": "Hurtig håndbold ovenfra med finter, skud og redninger. Spil venskabskamp, EM eller en hel sæson i Herreligaen."
+    },
+    {
+      "repo": "minigolf",
+      "navn": "Minigolf",
+      "genre": "Minigolf",
+      "beskrivelse": "Træk, sigt og slå. 20 baner med 18 huller hver, så der altid venter et nyt hul-i-ét på dig."
+    },
+    {
+      "repo": "fodboldgolf",
+      "navn": "Fodboldgolf",
+      "genre": "Fodboldgolf",
+      "beskrivelse": "Spark bolden fra start til hul på færrest mulige spark. Lob over bunkerne, skru uden om træerne og læs vinden."
     }
   ],
   "skaermbilleder": {
