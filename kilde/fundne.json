@@ -45,9 +45,9 @@
     "version": "0.28.4"
   },
   "minigolf": {
-    "beskrivelse": "Et minigolfspil til mobil og browser: 20 baner med 18 huller hver, set ovenfra, hvor man trækker bagud og slipper for at slå. v0.15. Plus en tilfældig bane med banekode.",
+    "beskrivelse": "Et minigolfspil til mobil og browser: 20 baner med 18 huller hver, set ovenfra, hvor man trækker bagud og slipper for at slå. v0.16. Plus en tilfældig bane med banekode.",
     "genre": "Nyt spil",
     "navn": "Minigolf",
-    "version": "0.15"
+    "version": "0.16"
   }
 }
