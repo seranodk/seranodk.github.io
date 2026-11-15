@@ -30,7 +30,7 @@
     "version": "1.3"
   },
   "Sensible": {
-    "version": "0.102"
+    "version": "0.103"
   },
   "Tennis": {
     "beskrivelse": "Et 16-bit tennisspil til mobil og browser med SNES-tennis som forbillede: kameraet bag banen, fire slagknapper, retningsstyret sigte og rigtig tennistælling.",
@@ -48,7 +48,7 @@
     "beskrivelse": "Håndboldspil til browser og mobil i top-down-stil, i samme familie som Sensible fodbold og Ishockey.",
     "genre": "Nyt spil",
     "navn": "Håndbold",
-    "version": "0.28.4"
+    "version": "0.29.0"
   },
   "minigolf": {
     "beskrivelse": "Et minigolfspil til mobil og browser: 20 baner med 18 huller hver, set ovenfra, hvor man trækker bagud og slipper for at slå. v0.16. Plus en tilfældig bane med banekode.",
