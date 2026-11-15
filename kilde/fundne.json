@@ -15,7 +15,7 @@
     "version": "0.27"
   },
   "Ishockey": {
-    "version": "0.22.1"
+    "version": "0.22.2"
   },
   "Jagerfly": {
     "beskrivelse": "Et top-down skydespil til mobil og browser, hvor du flyver jagerfly og skyder med maskingevær og missiler. Du starter med et F-16 og låser bedre fly op undervejs.",
@@ -42,7 +42,7 @@
     "beskrivelse": "Fodboldgolf til mobil og browser: 18 huller, lob, skrue, vind og hældning. Spil: https://seranodk.github.io/fodboldgolf/",
     "genre": "Nyt spil",
     "navn": "Fodboldgolf",
-    "version": "1.2"
+    "version": "1.3"
   },
   "handbold": {
     "beskrivelse": "Håndboldspil til browser og mobil i top-down-stil, i samme familie som Sensible fodbold og Ishockey.",
