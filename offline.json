@@ -1,0 +1,163 @@
+{
+ "egne": [
+  "https://seranodk.github.io/",
+  "https://seranodk.github.io/manifest.webmanifest",
+  "https://seranodk.github.io/app-ikon-180.png",
+  "https://seranodk.github.io/app-ikon-192.png"
+ ],
+ "skrifter": [
+  "https://fonts.googleapis.com/css2?family=Silkscreen&family=Figtree:wght@400;500;700&display=swap"
+ ],
+ "spil": [
+  {
+   "repo": "handbold",
+   "navn": "Håndbold",
+   "filer": [
+    "https://seranodk.github.io/handbold/",
+    "https://seranodk.github.io/handbold/index.html"
+   ],
+   "bytes": 292802
+  },
+  {
+   "repo": "Sensible",
+   "navn": "Sensible",
+   "filer": [
+    "https://seranodk.github.io/Sensible/",
+    "https://seranodk.github.io/Sensible/index.html"
+   ],
+   "bytes": 231682
+  },
+  {
+   "repo": "Formel1",
+   "navn": "Formel 1",
+   "filer": [
+    "https://seranodk.github.io/Formel1/",
+    "https://seranodk.github.io/Formel1/index.html"
+   ],
+   "bytes": 264599
+  },
+  {
+   "repo": "Ishockey",
+   "navn": "Ishockey",
+   "filer": [
+    "https://seranodk.github.io/Ishockey/",
+    "https://seranodk.github.io/Ishockey/apple-touch-icon.png",
+    "https://seranodk.github.io/Ishockey/icon-192.png",
+    "https://seranodk.github.io/Ishockey/icon-512.png",
+    "https://seranodk.github.io/Ishockey/index.html",
+    "https://seranodk.github.io/Ishockey/manifest.webmanifest"
+   ],
+   "bytes": 105570
+  },
+  {
+   "repo": "Brikker",
+   "navn": "Brikker",
+   "filer": [
+    "https://seranodk.github.io/Brikker/",
+    "https://seranodk.github.io/Brikker/apple-touch-icon.png",
+    "https://seranodk.github.io/Brikker/icon-192.png",
+    "https://seranodk.github.io/Brikker/icon-512.png",
+    "https://seranodk.github.io/Brikker/index.html",
+    "https://seranodk.github.io/Brikker/manifest.webmanifest"
+   ],
+   "bytes": 92290
+  },
+  {
+   "repo": "Labyrint",
+   "navn": "Labyrint",
+   "filer": [
+    "https://seranodk.github.io/Labyrint/",
+    "https://seranodk.github.io/Labyrint/apple-touch-icon.png",
+    "https://seranodk.github.io/Labyrint/icon-192.png",
+    "https://seranodk.github.io/Labyrint/icon-512.png",
+    "https://seranodk.github.io/Labyrint/index.html",
+    "https://seranodk.github.io/Labyrint/manifest.webmanifest"
+   ],
+   "bytes": 143424
+  },
+  {
+   "repo": "Tennis",
+   "navn": "Tennis",
+   "filer": [
+    "https://seranodk.github.io/Tennis/",
+    "https://seranodk.github.io/Tennis/apple-touch-icon.png",
+    "https://seranodk.github.io/Tennis/icon-192.png",
+    "https://seranodk.github.io/Tennis/icon-512.png",
+    "https://seranodk.github.io/Tennis/index.html",
+    "https://seranodk.github.io/Tennis/manifest.webmanifest"
+   ],
+   "bytes": 168494
+  },
+  {
+   "repo": "Flipgame",
+   "navn": "Vendespil",
+   "filer": [
+    "https://seranodk.github.io/Flipgame/",
+    "https://seranodk.github.io/Flipgame/apple-touch-icon.png",
+    "https://seranodk.github.io/Flipgame/icon-192.png",
+    "https://seranodk.github.io/Flipgame/icon-512.png",
+    "https://seranodk.github.io/Flipgame/index.html",
+    "https://seranodk.github.io/Flipgame/manifest.webmanifest"
+   ],
+   "bytes": 56408
+  },
+  {
+   "repo": "Maskiner",
+   "navn": "Maskiner",
+   "filer": [
+    "https://seranodk.github.io/Maskiner/",
+    "https://seranodk.github.io/Maskiner/apple-touch-icon.png",
+    "https://seranodk.github.io/Maskiner/icon-192.png",
+    "https://seranodk.github.io/Maskiner/icon-512.png",
+    "https://seranodk.github.io/Maskiner/index.html",
+    "https://seranodk.github.io/Maskiner/manifest.webmanifest"
+   ],
+   "bytes": 101813
+  },
+  {
+   "repo": "Bilspil",
+   "navn": "Racer",
+   "filer": [
+    "https://seranodk.github.io/Bilspil/",
+    "https://seranodk.github.io/Bilspil/index.html"
+   ],
+   "bytes": 70977
+  },
+  {
+   "repo": "Jagerfly",
+   "navn": "Jagerfly",
+   "filer": [
+    "https://seranodk.github.io/Jagerfly/",
+    "https://seranodk.github.io/Jagerfly/apple-touch-icon.png",
+    "https://seranodk.github.io/Jagerfly/icon-192.png",
+    "https://seranodk.github.io/Jagerfly/icon-512.png",
+    "https://seranodk.github.io/Jagerfly/index.html",
+    "https://seranodk.github.io/Jagerfly/manifest.webmanifest"
+   ],
+   "bytes": 134266
+  },
+  {
+   "repo": "minigolf",
+   "navn": "Minigolf",
+   "filer": [
+    "https://seranodk.github.io/minigolf/",
+    "https://seranodk.github.io/minigolf/apple-touch-icon.png",
+    "https://seranodk.github.io/minigolf/icon-192.png",
+    "https://seranodk.github.io/minigolf/icon-512.png",
+    "https://seranodk.github.io/minigolf/index.html",
+    "https://seranodk.github.io/minigolf/manifest.webmanifest"
+   ],
+   "bytes": 213637
+  },
+  {
+   "repo": "fodboldgolf",
+   "navn": "Fodboldgolf",
+   "filer": [
+    "https://seranodk.github.io/fodboldgolf/",
+    "https://seranodk.github.io/fodboldgolf/index.html"
+   ],
+   "bytes": 80255
+  }
+ ],
+ "id": "6aaa0f804ad4"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Spillehal",
+  "short_name": "Spillehal",
+  "description": "Små spil til mobil og computer. Virker også uden net, når spillene er hentet.",
+  "lang": "da",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0d14",
+  "theme_color": "#0b0d14",
+  "icons": [
+    {"src": "/app-ikon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/app-ikon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "/app-ikon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

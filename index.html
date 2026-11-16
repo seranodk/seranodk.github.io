@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/app-ikon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Spillehal">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Spillehal</title>
 <meta name="theme-color" content="#0b0d14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +51,18 @@ h1 .coin{color:var(--accent)}
 .desc{color:var(--muted);font-size:14px;line-height:1.45}
 .play{margin-top:4px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--accent)}
 .play svg{width:12px;height:12px;fill:currentColor}
+[hidden]{display:none!important}
+.offline{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:6px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.off-tekst{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 220px;font-size:14px;color:var(--muted)}
+.off-tekst b{color:var(--fg)}
+#offTitel{font-size:15px}
+.off-bar{display:block;height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:4px}
+.off-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.off-tip svg{width:13px;height:13px;fill:currentColor;vertical-align:-2px}
+#offKnap{font:700 14px var(--body);color:#14110a;background:var(--accent);border:0;border-radius:99px;padding:10px 16px;cursor:pointer;white-space:nowrap}
+#offKnap:disabled{opacity:.6;cursor:default}
+#offKnap:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.offline.ok #offTitel::before{content:"✓ ";color:var(--accent)}
 footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
 footer a{color:var(--fg)}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
@@ -55,6 +73,15 @@ footer a{color:var(--fg)}
 <header>
   <h1>Spillehal<span class="coin">.</span></h1>
   <p class="lede"><span id="count">13 små spil</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
+  <section class="offline" id="offline" hidden aria-live="polite">
+    <div class="off-tekst">
+      <b id="offTitel">Spil uden net</b>
+      <span id="offStatus">Gem alle spil på telefonen, så de også virker i flyet eller på ferien.</span>
+      <span class="off-bar" id="offBar" hidden><i id="offFyld"></i></span>
+      <span class="off-tip" id="offTip" hidden>På iPhone: tryk på <b>Del</b> <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l3 3-.7.7L8.5 2.9V10h-1V2.9L5.7 4.7 5 4zM3 7h3v1H4v6h8V8h-2V7h3v8H3z"/></svg> og vælg <b>Føj til hjemmeskærm</b>. Så ligger Spillehal som en app med alle spillene.</span>
+    </div>
+    <button type="button" id="offKnap">Hent alle spil</button>
+  </section>
 </header>
 <nav class="grid" aria-label="Spil">
 <a class="card" href="https://seranodk.github.io/handbold/" data-game="https://seranodk.github.io/handbold/" data-repo="handbold" aria-label="Spil Håndbold">
@@ -175,7 +202,7 @@ footer a{color:var(--fg)}
   </span>
 </a>
 </nav>
-<footer>Tip: Åbn et spil på mobilen og vælg <b>Føj til hjemmeskærm</b>, så starter det i fuld skærm som en app. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
+<footer>Tip: Hent alle spil, og læg Spillehal på hjemmeskærmen. Så har du alle spillene med, også uden net. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
 </main>
 <script>
 /* 1) Henter versionsnummeret fra hvert spils index.html, så kortet viser den version, der ligger ude nu.
@@ -250,6 +277,79 @@ footer a{color:var(--fg)}
   var ticks=0;
   setInterval(function(){if(document.hidden)return; refresh(); if(++ticks%5===0)discover();},60000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
+})();
+</script>
+<script>
+/* Spil uden net: gemmer Spillehallen og alle spil på enheden og holder dem opdateret. */
+(function(){
+  if(!('serviceWorker' in navigator) || !('caches' in window) || !/github\.io$/.test(location.hostname)) return;
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+  var CACHE='spillehal-offline', $=function(i){return document.getElementById(i)};
+  var boks=$('offline'), knap=$('offKnap'), titel=$('offTitel'), status=$('offStatus'), bar=$('offBar'), fyld=$('offFyld'), tip=$('offTip');
+  boks.hidden=false;
+  function hent(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function gem(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var app=navigator.standalone||matchMedia('(display-mode: standalone)').matches;
+  var mb=function(b){return (b/1048576).toFixed(b<1048576*10?1:0).replace('.',',')+' MB'};
+  var igang=false;
+
+  function visGemt(antal, naar){
+    boks.classList.add('ok'); bar.hidden=true;
+    titel.textContent=antal+' spil gemt til brug uden net';
+    status.textContent=(navigator.onLine?'Opdateres automatisk, når du har net.':'Du er offline. Alle gemte spil kan spilles.')+(naar?' Senest: '+naar+'.':'');
+    knap.textContent='Opdater nu'; knap.disabled=!navigator.onLine;
+    tip.hidden=!(ios&&!app);
+  }
+  async function liste(){
+    var r=await fetch('/offline.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) throw new Error('liste');
+    return r.json();
+  }
+  async function gemFil(c,url){
+    var u=new URL(url,location.href), egen=u.origin===location.origin;
+    var r=await fetch(url,{cache:'reload',mode:egen?'same-origin':'cors',credentials:'omit'});
+    if(!r.ok) throw new Error(r.status);
+    await c.put(url,r.clone());
+    if(/fonts\.googleapis\.com/.test(url)){            /* skrifttypernes egne filer */
+      var css=await r.text(), m, rx=/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g, out=[];
+      while((m=rx.exec(css))) out.push(m[1]);
+      await Promise.all(out.map(function(f){return fetch(f,{mode:'cors'}).then(function(x){if(x.ok) return c.put(f,x)}).catch(function(){})}));
+    }
+  }
+  async function hentAlt(stille){
+    if(igang||!navigator.onLine) return; igang=true;
+    try{
+      var l=await liste(), c=await caches.open(CACHE);
+      if(navigator.storage&&navigator.storage.persist) navigator.storage.persist().catch(function(){});
+      var opgaver=[]; l.egne.concat(l.skrifter).forEach(function(u){opgaver.push({u:u})});
+      l.spil.forEach(function(s,i){s.filer.forEach(function(u){opgaver.push({u:u,s:i})})});
+      var total=l.spil.reduce(function(a,s){return a+s.bytes},0), klar=0, fejl=0, spilFejl={};
+      if(!stille){knap.disabled=true; bar.hidden=false; titel.textContent='Henter spillene ('+mb(total)+')…'; boks.classList.remove('ok');}
+      var i=0;
+      async function arbejder(){
+        while(i<opgaver.length){var o=opgaver[i++];
+          try{await gemFil(c,o.u)}catch(e){fejl++; if(o.s!=null) spilFejl[o.s]=1}
+          klar++; if(!stille){fyld.style.width=Math.round(klar/opgaver.length*100)+'%'; status.textContent=klar+' af '+opgaver.length+' filer';}
+        }
+      }
+      await Promise.all([arbejder(),arbejder(),arbejder(),arbejder()]);
+      var ok=l.spil.length-Object.keys(spilFejl).length, naar=new Date().toLocaleString('da-DK',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+      gem('spillehal-offline',l.id); gem('spillehal-offline-naar',naar); gem('spillehal-offline-antal',String(ok));
+      visGemt(ok,naar);
+      if(fejl&&!stille) status.textContent+=' '+(fejl===1?'1 fil':fejl+' filer')+' kunne ikke hentes; prøv "Opdater nu" igen.';
+    }catch(e){
+      if(!stille){titel.textContent='Spil uden net'; status.textContent='Spillene kunne ikke hentes lige nu. Tjek din forbindelse og prøv igen.'; bar.hidden=true;}
+    }
+    knap.disabled=!navigator.onLine; igang=false;
+  }
+  knap.addEventListener('click',function(){hentAlt(false)});
+  addEventListener('online',function(){ if(hent('spillehal-offline')) visGemt(hent('spillehal-offline-antal'),hent('spillehal-offline-naar')); });
+  addEventListener('offline',function(){ if(hent('spillehal-offline')) visGemt(hent('spillehal-offline-antal'),hent('spillehal-offline-naar')); else {status.textContent='Du er offline.'; knap.disabled=true;} });
+  if(hent('spillehal-offline')){
+    visGemt(hent('spillehal-offline-antal'),hent('spillehal-offline-naar'));
+    /* har man hentet før: opdater stille, når der er nye spil eller nye versioner */
+    if(navigator.onLine) liste().then(function(l){ if(l.id!==hent('spillehal-offline')) hentAlt(true); }).catch(function(){});
+  } else if(!navigator.onLine){ status.textContent='Du er offline. Hent spillene, næste gang du har net.'; knap.disabled=true; }
 })();
 </script>
 <script data-goatcounter="https://seranodk.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

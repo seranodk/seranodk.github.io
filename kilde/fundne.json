@@ -3,57 +3,302 @@
     "beskrivelse": "Racerspil i browseren, inspireret af gameplayet fra Lotus-spillene på 16-bit konsollerne. Lavet så et barn på 6 år kan spille det.",
     "genre": "Nyt spil",
     "navn": "Bilspil – Racer",
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          70977
+        ]
+      ],
+      "sha": "79044b64c1c1b195bdeb55048a849a4cab894923"
+    },
     "version": "2.1"
   },
   "Brikker": {
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          9363
+        ],
+        [
+          "icon-192.png",
+          10111
+        ],
+        [
+          "icon-512.png",
+          24155
+        ],
+        [
+          "index.html",
+          48112
+        ],
+        [
+          "manifest.webmanifest",
+          549
+        ]
+      ],
+      "sha": "59a4882a4d29bc49972cbe9e521d60554c7cf108"
+    },
     "version": "0.2.0"
   },
   "Flipgame": {
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          8743
+        ],
+        [
+          "icon-192.png",
+          7780
+        ],
+        [
+          "icon-512.png",
+          4693
+        ],
+        [
+          "index.html",
+          34617
+        ],
+        [
+          "manifest.webmanifest",
+          575
+        ]
+      ],
+      "sha": "d8fab9d74595fb726c71ed9e6f3896c927b47459"
+    },
     "version": "0.3.0"
   },
   "Formel1": {
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          264599
+        ]
+      ],
+      "sha": "9897ad2be1f3ff6174a73748e6324b4c77be2fc6"
+    },
     "version": "0.27"
   },
   "Ishockey": {
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          1157
+        ],
+        [
+          "icon-192.png",
+          1187
+        ],
+        [
+          "icon-512.png",
+          2620
+        ],
+        [
+          "index.html",
+          100061
+        ],
+        [
+          "manifest.webmanifest",
+          545
+        ]
+      ],
+      "sha": "eebf2cdbada84060c9ea8b706715af0eee461116"
+    },
     "version": "0.23.0"
   },
   "Jagerfly": {
     "beskrivelse": "Et top-down skydespil til mobil og browser, hvor du flyver jagerfly og skyder med maskingevær og missiler. Du starter med et F-16 og låser bedre fly op undervejs.",
     "genre": "Nyt spil",
     "navn": "Jagerfly",
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          10622
+        ],
+        [
+          "icon-192.png",
+          11199
+        ],
+        [
+          "icon-512.png",
+          28838
+        ],
+        [
+          "index.html",
+          83057
+        ],
+        [
+          "manifest.webmanifest",
+          550
+        ]
+      ],
+      "sha": "0432e06fa311d30080aa179c5d786c827d7f5a00"
+    },
     "version": "1.3"
   },
   "Labyrint": {
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          12093
+        ],
+        [
+          "icon-192.png",
+          12730
+        ],
+        [
+          "icon-512.png",
+          58765
+        ],
+        [
+          "index.html",
+          59249
+        ],
+        [
+          "manifest.webmanifest",
+          587
+        ]
+      ],
+      "sha": "a0f4f4fa65902ed752c62c67cc7dfce8745c6f69"
+    },
     "version": "0.2.2"
   },
   "Maskiner": {
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          6725
+        ],
+        [
+          "icon-192.png",
+          6775
+        ],
+        [
+          "icon-512.png",
+          17557
+        ],
+        [
+          "index.html",
+          70191
+        ],
+        [
+          "manifest.webmanifest",
+          565
+        ]
+      ],
+      "sha": "d49387387ed54f95e0bf4c6f1675e3eae2aeffff"
+    },
     "version": "1.3"
   },
   "Sensible": {
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          231682
+        ]
+      ],
+      "sha": "5e4c88d299f77ad995e53a59de6993fcc75ac4b2"
+    },
     "version": "0.106"
   },
   "Tennis": {
     "beskrivelse": "Et 16-bit tennisspil til mobil og browser med SNES-tennis som forbillede: kameraet bag banen, fire slagknapper, retningsstyret sigte og rigtig tennistælling.",
     "genre": "Nyt spil",
     "navn": "Tennis",
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          5192
+        ],
+        [
+          "icon-192.png",
+          4937
+        ],
+        [
+          "icon-512.png",
+          14025
+        ],
+        [
+          "index.html",
+          143817
+        ],
+        [
+          "manifest.webmanifest",
+          523
+        ]
+      ],
+      "sha": "fb61579adc30af6df3b121441dcc14d6ed2f440a"
+    },
     "version": "4.8"
   },
   "fodboldgolf": {
     "beskrivelse": "Fodboldgolf til mobil og browser: 18 huller, lob, skrue, vind og hældning. Spil: https://seranodk.github.io/fodboldgolf/",
     "genre": "Nyt spil",
     "navn": "Fodboldgolf",
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          80255
+        ]
+      ],
+      "sha": "2d0adf213b610649154d5b2f2031ee2e24efc36d"
+    },
     "version": "1.4"
   },
   "handbold": {
     "beskrivelse": "Håndboldspil til browser og mobil i top-down-stil, i samme familie som Sensible fodbold og Ishockey.",
     "genre": "Nyt spil",
     "navn": "Håndbold",
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          292802
+        ]
+      ],
+      "sha": "6429d578d5a986b5b2f157b132d441272d0ec4de"
+    },
     "version": "0.29.0"
   },
   "minigolf": {
     "beskrivelse": "Et minigolfspil til mobil og browser: 20 baner med 18 huller hver, set ovenfra, hvor man trækker bagud og slipper for at slå. v0.16. Plus en tilfældig bane med banekode.",
     "genre": "Nyt spil",
     "navn": "Minigolf",
+    "offline": {
+      "filer": [
+        [
+          "apple-touch-icon.png",
+          5782
+        ],
+        [
+          "icon-192.png",
+          6247
+        ],
+        [
+          "icon-512.png",
+          16249
+        ],
+        [
+          "index.html",
+          184815
+        ],
+        [
+          "manifest.webmanifest",
+          544
+        ]
+      ],
+      "sha": "2a56d54a6243181539890112d68225d8c6dc7928"
+    },
     "version": "0.16"
   }
 }

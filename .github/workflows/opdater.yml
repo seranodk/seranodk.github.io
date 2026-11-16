@@ -59,7 +59,7 @@ jobs:
               echo "Nyt spil uden skærmbillede: $(tr '\n' ' ' < "$MANGLER_FIL")- henter browser."
               hent_browser && { python kilde/build.py || echo "Byg fejlede denne gang."; }
             fi
-            git add -A index.html kilde/
+            git add -A index.html offline.json kilde/
             if git diff --cached --quiet; then
               echo "$(date -u +%H:%M) Ingen nye spil eller ændringer."
             else

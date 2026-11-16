@@ -133,9 +133,10 @@ else:
         if get(f'https://raw.githubusercontent.com/{OWNER}/{r["name"]}/{r.get("default_branch","main")}/index.html') is None:
             print('Springer over (ingen index.html endnu):', r['name']); CACHE.pop(r['name'], None); continue
         print('Fundet nyt spil:', r['name'])
-        games.append(dict(auto_info(r), repo=r['name']))
+        games.append(dict(auto_info(r), repo=r['name'], branch=r.get('default_branch', 'main')))
 for g in games:
-    g['version'] = version(g['repo'])
+    g['_doc'] = get(page_url(g['repo']))
+    g['version'] = version(g['repo'], g['_doc'])
     g['url'] = page_url(g['repo'])
     g['img'] = image(g['repo'])
     if g['repo'].lower() not in curated:
@@ -143,6 +144,12 @@ for g in games:
     else:
         CACHE.setdefault(g['repo'], {})['version'] = g['version']
 
+from offline import byg as byg_offline
+EGNE = ['https://' + OWNER + '.github.io/', 'https://' + OWNER + '.github.io/manifest.webmanifest',
+        'https://' + OWNER + '.github.io/app-ikon-180.png', 'https://' + OWNER + '.github.io/app-ikon-192.png']
+n_off = byg_offline(games, get, CACHE, OWNER, ROOT, page_url, EGNE,
+                    ['https://fonts.googleapis.com/css2?family=Silkscreen&family=Figtree:wght@400;500;700&display=swap'])
+print('Offline-liste med', n_off, 'spil')
 json.dump(CACHE, open(CACHE_F, 'w', encoding='utf-8'), ensure_ascii=False, indent=2, sort_keys=True)
 
 def card(g):
@@ -206,6 +213,18 @@ h1 .coin{color:var(--accent)}
 .desc{color:var(--muted);font-size:14px;line-height:1.45}
 .play{margin-top:4px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--accent)}
 .play svg{width:12px;height:12px;fill:currentColor}
+[hidden]{display:none!important}
+.offline{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:6px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.off-tekst{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 220px;font-size:14px;color:var(--muted)}
+.off-tekst b{color:var(--fg)}
+#offTitel{font-size:15px}
+.off-bar{display:block;height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:4px}
+.off-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.off-tip svg{width:13px;height:13px;fill:currentColor;vertical-align:-2px}
+#offKnap{font:700 14px var(--body);color:#14110a;background:var(--accent);border:0;border-radius:99px;padding:10px 16px;cursor:pointer;white-space:nowrap}
+#offKnap:disabled{opacity:.6;cursor:default}
+#offKnap:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.offline.ok #offTitel::before{content:"✓ ";color:var(--accent)}
 footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
 footer a{color:var(--fg)}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
@@ -289,10 +308,19 @@ main=f'''<main class="wrap">
 <header>
   <h1>Spillehal<span class="coin">.</span></h1>
   <p class="lede"><span id="count">{COUNT}</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
+  <section class="offline" id="offline" hidden aria-live="polite">
+    <div class="off-tekst">
+      <b id="offTitel">Spil uden net</b>
+      <span id="offStatus">Gem alle spil på telefonen, så de også virker i flyet eller på ferien.</span>
+      <span class="off-bar" id="offBar" hidden><i id="offFyld"></i></span>
+      <span class="off-tip" id="offTip" hidden>På iPhone: tryk på <b>Del</b> <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l3 3-.7.7L8.5 2.9V10h-1V2.9L5.7 4.7 5 4zM3 7h3v1H4v6h8V8h-2V7h3v8H3z"/></svg> og vælg <b>Føj til hjemmeskærm</b>. Så ligger Spillehal som en app med alle spillene.</span>
+    </div>
+    <button type="button" id="offKnap">Hent alle spil</button>
+  </section>
 </header>
 <nav class="grid" aria-label="Spil">{cards}
 </nav>
-<footer>Tip: Åbn et spil på mobilen og vælg <b>Føj til hjemmeskærm</b>, så starter det i fuld skærm som en app. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
+<footer>Tip: Hent alle spil, og læg Spillehal på hjemmeskærmen. Så har du alle spillene med, også uden net. Kildekoden ligger på <a href="https://github.com/seranodk">github.com/seranodk</a>.</footer>
 </main>
 {SCRIPT.replace('__OWNER__', OWNER).replace('__SKJUL__', json.dumps(sorted(SKJUL)))}'''
 # Besøgsstatistik med GoatCounter (ingen cookies). Tæller sidevisninger og hvilke spil der trykkes på.
@@ -304,7 +332,11 @@ document.addEventListener('click',function(e){{
   window.goatcounter.count({{path:'spil/'+a.dataset.repo, title:a.querySelector('.name').textContent, event:true}});
 }});
 </script>""" if STAT else '')
-open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="da">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'+head.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')+'\n</head>\n<body>\n'+main+'\n'+STATS+'\n</body>\n</html>\n')
+APP_HEAD = ('<link rel="manifest" href="/manifest.webmanifest">\n<link rel="apple-touch-icon" href="/app-ikon-180.png">\n'
+            '<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n'
+            '<meta name="apple-mobile-web-app-title" content="Spillehal">\n<meta name="apple-mobile-web-app-status-bar-style" content="black">\n')
+OFFLINE_JS = '<script>\n' + open(os.path.join(D, 'offline-side.js'), encoding='utf-8').read() + '</script>\n'
+open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="da">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'+APP_HEAD+head.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')+'\n</head>\n<body>\n'+main+'\n'+OFFLINE_JS+STATS+'\n</body>\n</html>\n')
 if '--artifact' in sys.argv:
     open(os.path.join(D,'artifact.html'),'w',encoding='utf-8').write(head+'\n'+main)
 print('Bygget index.html med', len(games), 'spil')

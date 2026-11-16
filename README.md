@@ -16,6 +16,12 @@ Siden spørger selv GitHub, hver gang den åbnes, så et nyt repo med Pages vise
 - **Skjul et repo**, der ikke er et spil: skriv navnet i `"skjul"` i `kilde/spil.json`.
 - Kør den med det samme under **Actions → Opdater spilhal → Run workflow**.
 
+## Spil uden net
+Knappen **Hent alle spil** gemmer Spillehallen og alle spil på telefonen (ca. 2 MB), så de kan spilles uden net, fx i et fly. Læg derefter Spillehal på hjemmeskærmen (iPhone: Del → Føj til hjemmeskærm).
+- `sw.js` henter altid fra nettet først og bruger den gemte kopi, når der ikke er net.
+- `offline.json` er listen over filer, der gemmes. Den laves af `kilde/offline.py` ved hver automatisk opdatering, så nye spil og nye versioner kommer med af sig selv.
+- Har man hentet spillene én gang, opdaterer siden dem stille i baggrunden, hver gang den åbnes med net.
+
 ## Besøgsstatistik
 Siden tæller besøg med [GoatCounter](https://www.goatcounter.com) (ingen cookies). Tallene ses på https://seranodk.goatcounter.com: antal besøg, hvor de kom fra, land, telefon/computer og hvilke spil der blev trykket på (under `spil/…`). Koden står under `"statistik"` i `kilde/spil.json`; tom = ingen statistik.
 
