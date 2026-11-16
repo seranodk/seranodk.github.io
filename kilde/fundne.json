@@ -248,12 +248,12 @@
       "filer": [
         [
           "index.html",
-          106759
+          369025
         ]
       ],
-      "sha": "acde4707b34aa2906a16ccd7a581e33e30157484"
+      "sha": "80149d74c3dcf63a92d6e03398f7fdb9652a0fb8"
     },
-    "version": "0.6"
+    "version": "0.7"
   },
   "fodboldgolf": {
     "beskrivelse": "Fodboldgolf til mobil og browser: 18 huller, lob, skrue, vind og hældning. Spil: https://seranodk.github.io/fodboldgolf/",
