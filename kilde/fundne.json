@@ -99,14 +99,14 @@
         ],
         [
           "index.html",
-          100061
+          104183
         ],
         [
           "manifest.webmanifest",
           545
         ]
       ],
-      "sha": "eebf2cdbada84060c9ea8b706715af0eee461116"
+      "sha": "418db6c09162c6b1194acfb0c9a9e2afaf1186e2"
     },
     "version": "0.23.0"
   },
@@ -248,10 +248,10 @@
       "filer": [
         [
           "index.html",
-          80255
+          84448
         ]
       ],
-      "sha": "2d0adf213b610649154d5b2f2031ee2e24efc36d"
+      "sha": "a52ce741eca1eb059f7b81c60a89b666c1a97b44"
     },
     "version": "1.4"
   },
