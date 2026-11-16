@@ -167,7 +167,16 @@
     "https://seranodk.github.io/fodboldgolf/index.html"
    ],
    "bytes": 84448
+  },
+  {
+   "repo": "tetris",
+   "navn": "Tetris",
+   "filer": [
+    "https://seranodk.github.io/tetris/",
+    "https://seranodk.github.io/tetris/index.html"
+   ],
+   "bytes": 23662
   }
  ],
- "id": "9ffde62729e9"
+ "id": "8dc3a1e3bd24"
 }

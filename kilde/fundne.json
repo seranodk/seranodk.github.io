@@ -300,5 +300,20 @@
       "sha": "2a56d54a6243181539890112d68225d8c6dc7928"
     },
     "version": "0.16"
+  },
+  "tetris": {
+    "beskrivelse": "Komplet Tetris-klon til browser og mobil – optimeret til iPhone 15 (portræt, safe-area, ingen zoom/scroll).",
+    "genre": "Nyt spil",
+    "navn": "Tetris",
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          23662
+        ]
+      ],
+      "sha": "fe6b2d2281c0712f74212a0f9c73dd1007369936"
+    },
+    "version": "1.0"
   }
 }
