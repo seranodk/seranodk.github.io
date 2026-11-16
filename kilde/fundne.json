@@ -242,18 +242,18 @@
   },
   "atlektik": {
     "beskrivelse": "Mobilspil i chibi-stil med 9 discipliner: 100 m, svømning, hækkeløb, længdespring, højdespring, spydkast, kuglestød, diskoskast og bueskydning.",
-    "genre": "Sport",
+    "genre": "Nyt spil",
     "navn": "Atletik",
     "offline": {
       "filer": [
         [
           "index.html",
-          54266
+          91468
         ]
       ],
-      "sha": "a56024162663c9783e1a8c656c83311095487535"
+      "sha": "8f311db9d031a45c48d4f5658d365db934de5c0d"
     },
-    "version": "0.2"
+    "version": "0.3"
   },
   "fodboldgolf": {
     "beskrivelse": "Fodboldgolf til mobil og browser: 18 huller, lob, skrue, vind og hældning. Spil: https://seranodk.github.io/fodboldgolf/",
