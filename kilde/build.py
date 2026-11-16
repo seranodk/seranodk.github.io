@@ -9,7 +9,7 @@
 3. Mangler et spil et billede i kilde/billeder/, tages et ingame-skærmbillede.
 Kan køres uden net; så bruges kun spil.json og de gemte data.
 """
-import base64, html, json, os, re, sys, urllib.request
+import base64, html, json, os, re, sys, urllib.parse, urllib.request
 D = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(D)
 CFG = json.load(open(os.path.join(D, 'spil.json'), encoding='utf-8'))
@@ -23,7 +23,7 @@ RX_VER2 = re.compile(r'<(?:title>|meta[^>]+name="description"[^>]+content=")[^<"
 SHOTS = {k.lower(): v for k, v in CFG.get('skaermbilleder', {}).items()}
 NET = '--offline' not in sys.argv
 
-def get(url, api=False):
+def get(url, api=False, quiet=False):
     if not NET: return None
     req = urllib.request.Request(url, headers={'User-Agent': 'spilhal'})
     if api and os.environ.get('GITHUB_TOKEN'):
@@ -31,7 +31,8 @@ def get(url, api=False):
     try:
         with urllib.request.urlopen(req, timeout=20) as r: return r.read().decode('utf-8', 'replace')
     except Exception as e:
-        print('  kunne ikke hente', url, '-', e); return None
+        if not quiet: print('  kunne ikke hente', url, '-', e)
+        return None
 
 def page_url(repo): return os.environ.get('SPILHAL_BASE', f'https://{OWNER}.github.io/') + repo + '/'
 
@@ -138,9 +139,30 @@ for g in games:
     g['url'] = page_url(g['repo'])
     g['img'] = image(g['repo'])
     if g['repo'].lower() not in curated:
-        CACHE[g['repo']] = {k: g[k] for k in ('navn', 'genre', 'beskrivelse', 'version')}
+        CACHE[g['repo']] = dict(CACHE.get(g['repo'], {}), **{k: g[k] for k in ('navn', 'genre', 'beskrivelse', 'version')})
     else:
         CACHE.setdefault(g['repo'], {})['version'] = g['version']
+
+# Mest spillede spil øverst. Tallene er tryk på spillet her på siden (GoatCounter-hændelsen "spil/<repo>")
+# plus besøg direkte på spillets egen side, hvis den tælles. Hentes via GoatCounters offentlige tæller;
+# kan de ikke hentes, bruges de sidst gemte tal. Lige mange: rækkefølgen fra spil.json bevares.
+def plays(repo):
+    if not (NET and CFG.get('statistik')): return None
+    total, svar = 0, False
+    for path in ('spil/' + repo, '/spil/' + repo, '/' + repo + '/'):
+        t = get(f"https://{CFG['statistik']}.goatcounter.com/counter/{urllib.parse.quote(path, safe='')}.json", quiet=True)
+        if t is None: continue
+        try:
+            total += int(re.sub(r'\D', '', str(json.loads(t).get('count', '0'))) or 0); svar = True
+        except Exception:
+            pass
+    return total if svar else None
+for g in games:
+    n = plays(g['repo'])
+    g['spillet'] = n if n is not None else CACHE.get(g['repo'], {}).get('spillet', 0)
+    CACHE.setdefault(g['repo'], {})['spillet'] = g['spillet']
+games.sort(key=lambda g: -g['spillet'])
+print('Rækkefølge:', ', '.join(f"{g['navn']} ({g['spillet']})" for g in games))
 json.dump(CACHE, open(CACHE_F, 'w', encoding='utf-8'), ensure_ascii=False, indent=2, sort_keys=True)
 
 def card(g):
@@ -161,7 +183,7 @@ cards = ''.join(card(g) for g in games)
 COUNT = {1:'Ét lille spil',2:'To små spil',3:'Tre små spil',4:'Fire små spil',5:'Fem små spil',6:'Seks små spil',
          7:'Syv små spil',8:'Otte små spil',9:'Ni små spil',10:'Ti små spil'}.get(len(games), f'{len(games)} små spil')
 
-head='''<title>Troels' Spilhal</title>
+head='''<title>Spillehal</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#0b0d14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -285,7 +307,7 @@ SCRIPT=r'''<script>
 </script>'''
 main=f'''<main class="wrap">
 <header>
-  <h1>Troels' Spilhal<span class="coin">.</span></h1>
+  <h1>Spillehal<span class="coin">.</span></h1>
   <p class="lede"><span id="count">{COUNT}</span>, der kører i browseren på både mobil og computer. Tryk på et spil for at starte.</p>
 </header>
 <nav class="grid" aria-label="Spil">{cards}
