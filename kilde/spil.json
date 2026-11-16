@@ -4,16 +4,22 @@
   "skjul": [],
   "spil": [
     {
-      "repo": "Formel1",
-      "navn": "Formel 1",
-      "genre": "Racerløb",
-      "beskrivelse": "Sæt dig bag rattet i en hel Formel 1-sæson. Kæmp om sejren i Monaco, Spa og om natten i Singapore og Las Vegas."
+      "repo": "handbold",
+      "navn": "Håndbold",
+      "genre": "Håndbold",
+      "beskrivelse": "Hurtig håndbold ovenfra med finter, skud og redninger. Spil venskabskamp, EM eller en hel sæson i Herreligaen."
     },
     {
       "repo": "Sensible",
       "navn": "Sensible",
       "genre": "Fodbold",
       "beskrivelse": "Klassisk fodbold ovenfra med høj fart og store mål. Vælg dit hold fra Europas bedste ligaer, eller udfordr en ven."
+    },
+    {
+      "repo": "Formel1",
+      "navn": "Formel 1",
+      "genre": "Racerløb",
+      "beskrivelse": "Sæt dig bag rattet i en hel Formel 1-sæson. Kæmp om sejren i Monaco, Spa og om natten i Singapore og Las Vegas."
     },
     {
       "repo": "Ishockey",
@@ -62,12 +68,6 @@
       "navn": "Jagerfly",
       "genre": "Action",
       "beskrivelse": "Flyv over hav og øer, og skyd fjenderne ned. Lås nye jagerfly op gennem 14 baner fyldt med action."
-    },
-    {
-      "repo": "handbold",
-      "navn": "Håndbold",
-      "genre": "Håndbold",
-      "beskrivelse": "Hurtig håndbold ovenfra med finter, skud og redninger. Spil venskabskamp, EM eller en hel sæson i Herreligaen."
     },
     {
       "repo": "minigolf",

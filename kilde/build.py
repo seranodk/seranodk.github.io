@@ -143,26 +143,6 @@ for g in games:
     else:
         CACHE.setdefault(g['repo'], {})['version'] = g['version']
 
-# Mest spillede spil øverst. Tallene er tryk på spillet her på siden (GoatCounter-hændelsen "spil/<repo>")
-# plus besøg direkte på spillets egen side, hvis den tælles. Hentes via GoatCounters offentlige tæller;
-# kan de ikke hentes, bruges de sidst gemte tal. Lige mange: rækkefølgen fra spil.json bevares.
-def plays(repo):
-    if not (NET and CFG.get('statistik')): return None
-    total, svar = 0, False
-    for path in ('spil/' + repo, '/spil/' + repo, '/' + repo + '/'):
-        t = get(f"https://{CFG['statistik']}.goatcounter.com/counter/{urllib.parse.quote(path, safe='')}.json", quiet=True)
-        if t is None: continue
-        try:
-            total += int(re.sub(r'\D', '', str(json.loads(t).get('count', '0'))) or 0); svar = True
-        except Exception:
-            pass
-    return total if svar else None
-for g in games:
-    n = plays(g['repo'])
-    g['spillet'] = n if n is not None else CACHE.get(g['repo'], {}).get('spillet', 0)
-    CACHE.setdefault(g['repo'], {})['spillet'] = g['spillet']
-games.sort(key=lambda g: -g['spillet'])
-print('Rækkefølge:', ', '.join(f"{g['navn']} ({g['spillet']})" for g in games))
 json.dump(CACHE, open(CACHE_F, 'w', encoding='utf-8'), ensure_ascii=False, indent=2, sort_keys=True)
 
 def card(g):
