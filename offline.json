@@ -169,14 +169,23 @@
    "bytes": 84448
   },
   {
+   "repo": "atlektik",
+   "navn": "Atletik",
+   "filer": [
+    "https://seranodk.github.io/atlektik/",
+    "https://seranodk.github.io/atlektik/index.html"
+   ],
+   "bytes": 54266
+  },
+  {
    "repo": "tetris",
    "navn": "Tetris",
    "filer": [
     "https://seranodk.github.io/tetris/",
     "https://seranodk.github.io/tetris/index.html"
    ],
-   "bytes": 23662
+   "bytes": 23476
   }
  ],
- "id": "8dc3a1e3bd24"
+ "id": "caadce5c8caa"
 }
