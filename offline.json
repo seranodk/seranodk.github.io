@@ -6,7 +6,17 @@
   "https://seranodk.github.io/app-ikon-192.png"
  ],
  "skrifter": [
-  "https://fonts.googleapis.com/css2?family=Silkscreen&family=Figtree:wght@400;500;700&display=swap"
+  "https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap",
+  "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;600&display=swap",
+  "https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@500;600;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@400;500;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Lilita+One&family=Signika:wght@500;600;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
+  "https://fonts.googleapis.com/css2?family=Russo+One&family=Nunito:wght@600;800;900&display=swap",
+  "https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Saira+Condensed:wght@500;600;700;800&display=swap",
+  "https://fonts.googleapis.com/css2?family=Silkscreen&family=Figtree:wght@400;500;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap"
  ],
  "spil": [
   {
@@ -47,7 +57,7 @@
     "https://seranodk.github.io/Ishockey/index.html",
     "https://seranodk.github.io/Ishockey/manifest.webmanifest"
    ],
-   "bytes": 105570
+   "bytes": 109692
   },
   {
    "repo": "Brikker",
@@ -156,8 +166,8 @@
     "https://seranodk.github.io/fodboldgolf/",
     "https://seranodk.github.io/fodboldgolf/index.html"
    ],
-   "bytes": 80255
+   "bytes": 84448
   }
  ],
- "id": "6aaa0f804ad4"
+ "id": "9ffde62729e9"
 }
