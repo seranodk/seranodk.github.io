@@ -185,7 +185,16 @@
     "https://seranodk.github.io/tetris/index.html"
    ],
    "bytes": 23475
+  },
+  {
+   "repo": "tarnforsvar",
+   "navn": "Tårnforsvar",
+   "filer": [
+    "https://seranodk.github.io/tarnforsvar/",
+    "https://seranodk.github.io/tarnforsvar/index.html"
+   ],
+   "bytes": 74096
   }
  ],
- "id": "f62c5b1ca118"
+ "id": "6b80c5733e8c"
 }

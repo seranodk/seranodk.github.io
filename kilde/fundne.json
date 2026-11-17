@@ -316,6 +316,21 @@
     },
     "version": "0.16"
   },
+  "tarnforsvar": {
+    "beskrivelse": "Et tårnforsvarsspil i anden verdenskrig til mobil og browser. Forsvar hovedkvarteret mod bølger af soldater, køretøjer, kampvogne og fly.",
+    "genre": "Nyt spil",
+    "navn": "Tårnforsvar",
+    "offline": {
+      "filer": [
+        [
+          "index.html",
+          74096
+        ]
+      ],
+      "sha": "ae7b0f37c43f9fefe12add1091e0bc2018f9ad36"
+    },
+    "version": "0.6"
+  },
   "tetris": {
     "beskrivelse": "Komplet Tetris-klon til browser og mobil – optimeret til iPhone 15 (portræt, safe-area, ingen zoom/scroll).",
     "genre": "Nyt spil",
