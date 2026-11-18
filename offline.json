@@ -178,15 +178,6 @@
    "bytes": 369025
   },
   {
-   "repo": "tarnforsvar",
-   "navn": "Tårnforsvar",
-   "filer": [
-    "https://seranodk.github.io/tarnforsvar/",
-    "https://seranodk.github.io/tarnforsvar/index.html"
-   ],
-   "bytes": 74096
-  },
-  {
    "repo": "tetris",
    "navn": "Tetris",
    "filer": [
@@ -194,7 +185,16 @@
     "https://seranodk.github.io/tetris/index.html"
    ],
    "bytes": 23475
+  },
+  {
+   "repo": "tarnforsvar",
+   "navn": "Tårnforsvar",
+   "filer": [
+    "https://seranodk.github.io/tarnforsvar/",
+    "https://seranodk.github.io/tarnforsvar/index.html"
+   ],
+   "bytes": 74096
   }
  ],
- "id": "55ed29d4fcaa"
+ "id": "6b80c5733e8c"
 }
